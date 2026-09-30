@@ -1,0 +1,2454 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekapitulasi Kerugian Daerah Kabupaten Lingga</title>
+  
+  <!-- CSS Dependencies -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #0f172a;
+      --accent-color: #2563eb;
+      --accent-hover: #1d4ed8;
+      --bg-light: #f8fafc;
+      --card-bg: #ffffff;
+      --text-dark: #1e293b;
+      --sidebar-width: 260px;
+    }
+    /* Header tabel Rekap tetap saat scroll */
+#tableRekap thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+}
+/* =========================================================
+     RESPONSIVE DESIGN - SEMUA PERANGKAT
+     ========================================================= */
+
+  @media (max-width: 991.98px) {
+
+    .sidebar {
+      width: 220px;
+    }
+
+    .sidebar-header {
+      padding: 20px 15px;
+    }
+
+    .sidebar-nav {
+      padding: 15px 10px;
+    }
+
+    .nav-item-btn {
+      padding: 11px 12px;
+      font-size: 0.9rem;
+    }
+
+    .top-navbar {
+      padding: 12px 20px;
+    }
+
+    .content-body {
+      padding: 20px;
+    }
+
+    .metric-card {
+      padding: 18px;
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .table-responsive table {
+      min-width: 900px;
+    }
+  }
+
+
+  /* HP / SMARTPHONE */
+  @media (max-width: 767.98px) {
+
+    body {
+      overflow-x: hidden;
+    }
+
+    .app-layout {
+      display: block;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 100%;
+      min-height: auto;
+      position: relative;
+    }
+
+    .sidebar-header {
+      padding: 15px;
+    }
+
+    .sidebar-nav {
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .nav-item-btn {
+      width: auto;
+      flex: 1 1 calc(50% - 5px);
+      margin-bottom: 0;
+      padding: 10px;
+      font-size: 0.85rem;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .main-content {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .top-navbar {
+      padding: 12px 15px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .content-body {
+      padding: 15px;
+    }
+
+    .card {
+      border-radius: 14px !important;
+    }
+
+    .card.p-4 {
+      padding: 1rem !important;
+    }
+
+    h3 {
+      font-size: 1.35rem;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+    }
+
+    h5 {
+      font-size: 1.05rem;
+    }
+
+    h6 {
+      font-size: 0.95rem;
+    }
+
+    .metric-card {
+      padding: 16px;
+    }
+
+    .metric-card h3 {
+      font-size: 1.2rem;
+    }
+
+    .btn {
+      white-space: normal;
+    }
+
+    .input-group {
+      max-width: 100% !important;
+      width: 100%;
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .table-responsive table {
+      min-width: 900px;
+    }
+
+    .table-responsive th,
+    .table-responsive td {
+      white-space: nowrap;
+    }
+
+    .modal-dialog {
+      margin: 10px;
+    }
+
+    .modal-content {
+      border-radius: 14px;
+    }
+
+    .modal-body {
+      padding: 15px;
+    }
+  }
+
+
+  /* HP KECIL */
+  @media (max-width: 575.98px) {
+
+    .sidebar-header {
+      padding: 12px;
+    }
+
+    .sidebar-nav {
+      padding: 8px;
+    }
+
+    .nav-item-btn {
+      flex: 1 1 100%;
+      justify-content: flex-start;
+      text-align: left;
+      padding: 9px 12px;
+    }
+
+    .top-navbar {
+      padding: 10px 12px;
+    }
+
+    .content-body {
+      padding: 10px;
+    }
+
+    .metric-card {
+      padding: 14px;
+    }
+
+    .metric-card h3 {
+      font-size: 1.1rem;
+    }
+
+    .card.p-4 {
+      padding: 12px !important;
+    }
+
+    .table-responsive table {
+      min-width: 900px;
+    }
+
+    .modal-dialog {
+      margin: 5px;
+    }
+
+    .modal-header,
+    .modal-footer {
+      padding: 12px;
+    }
+
+    .modal-body {
+      padding: 12px;
+    }
+  }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* Loading Overlay */
+    #loadingOverlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Login Screen Layout */
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+      padding: 20px;
+    }
+
+    .login-card {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      width: 100%;
+      max-width: 440px;
+      padding: 35px 30px;
+      position: relative;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+
+    /* Main Dashboard Layout */
+    .app-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--primary-color);
+      color: #ffffff;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-nav {
+      padding: 20px 12px;
+      flex-grow: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: #94a3b8;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 6px;
+      transition: all 0.2s;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item-btn:hover, .nav-item-btn.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .nav-item-btn.active {
+      background: var(--accent-color);
+    }
+
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .top-navbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .content-body {
+      padding: 30px;
+      flex-grow: 1;
+    }
+
+    /* Summary Cards */
+    .metric-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .metric-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    /* Drag & Drop Area */
+    .drag-drop-area {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .drag-drop-area:hover, .drag-drop-area.drag-over {
+      border-color: var(--accent-color);
+      background: #eff6ff;
+    }
+
+    /* Captcha box */
+    .captcha-box {
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      font-size: 1.2rem;
+      user-select: none;
+      color: #0f172a;
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .custom-table th {
+      background: #f8fafc;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      padding: 14px 16px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .custom-table td {
+      padding: 14px 16px;
+      vertical-align: middle;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.9rem;
+    }
+
+    .badge-preview-mode {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: #f59e0b;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading State Indicator -->
+  <div id="loadingOverlay" class="d-none">
+    <div class="spinner-border text-light mb-3" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <h5 id="loadingText" class="fw-bold">Memuat Data...</h5>
+  </div>
+
+  <!-- PREVIEW MODE BADGE (Client side verification) -->
+  <div id="previewBadge" class="badge-preview-mode d-none">
+    <i class="fa-solid fa-triangle-exclamation me-1"></i> MODE PREVIEW (SIMULASI)
+  </div>
+
+  <!-- ==================== VIEW 1: LOGIN PAGE ==================== -->
+  <div id="viewLogin" class="login-wrapper">
+    <div class="login-card">
+      <div class="text-center">
+        <div class="brand-badge">
+          <i class="fa-solid fa-shield-halved"></i> INSPEKTORAT KAB. LINGGA
+        </div>
+        <h4 class="fw-bold text-dark mb-1">Aplikasi Rekapitulasi</h4>
+        <p class="text-muted small mb-4">Kerugian Daerah Kabupaten Lingga</p>
+      </div>
+
+      <!-- Live & Preview Login Info Alert -->
+      <div id="loginInfoBox" class="alert alert-info py-2 small mb-3 text-center">
+        <i class="fa-solid fa-info-circle me-1"></i> Demo Login Preview:<br>
+        Username: <strong>TLinspektorat</strong> | Pass: <strong>TLinspektorat#</strong>
+      </div>
+
+      <form id="formLogin" onsubmit="handleLoginSubmit(event)">
+        <div class="mb-3">
+          <label class="form-label small fw-bold">Username</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-user text-muted"></i></span>
+            <input type="text" id="loginUsername" class="form-control border-start-0 bg-light" placeholder="Masukkan Username" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-bold">Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-key text-muted"></i></span>
+            <input type="password" id="loginPassword" class="form-control border-start-0 border-end-0 bg-light" placeholder="Masukkan Password" required>
+            <button type="button" class="input-group-text bg-light border-start-0" onclick="togglePasswordVisibility('loginPassword', 'eyeIconLogin')">
+              <i class="fa-solid fa-eye text-muted" id="eyeIconLogin"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Captcha Requirement -->
+        <div class="mb-4">
+          <label class="form-label small fw-bold">Kode Verifikasi (Captcha)</label>
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <div id="captchaCode" class="captcha-box flex-grow-1 text-center">8A3F2</div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="generateCaptcha()"><i class="fa-solid fa-arrows-rotate"></i></button>
+          </div>
+          <input type="text" id="captchaInput" class="form-control bg-light" placeholder="Ketik kode di atas" required>
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="btn btn-primary w-full w-100 py-2.5 fw-bold" style="background: var(--accent-color); border:none; border-radius:10px;">
+          <i class="fa-solid fa-right-to-bracket me-2"></i> Masuk Aplikasi
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== VIEW 2: MAIN DASHBOARD & APP ==================== -->
+  <div id="viewApp" class="app-layout d-none">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="d-flex align-items-center gap-3">
+          <div class="bg-primary p-2 rounded-3 text-white">
+            <i class="fa-solid fa-building-columns fs-4"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold mb-0 text-white">SI-REKAP TGR</h6>
+            <small class="text-slate-400" style="font-size:0.75rem; color:#94a3b8;">Kabupaten Lingga</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-nav">
+        <button class="nav-item-btn active" id="btnNavDashboard" onclick="switchMenu('dashboard')">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </button>
+        
+        <button class="nav-item-btn" id="btnNavOPD" onclick="switchMenu('opd')">
+          <i class="fa-solid fa-landmark"></i>
+          <span>Data OPD / Instansi</span>
+        </button>
+
+        <button class="nav-item-btn" id="btnNavLHP" onclick="switchMenu('lhp')">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>Laporan Hasil Pemeriksaan</span>
+        </button>
+
+        <button class="nav-item-btn" id="btnNavManajemen" onclick="switchMenu('manajemen')">
+          <i class="fa-solid fa-user-gear"></i>
+          <span>Manajemen Akun</span>
+        </button>
+      </div>
+
+      <div class="p-3 border-top border-secondary border-opacity-25">
+        <button class="nav-item-btn text-danger hover-bg-danger" onclick="handleLogout()">
+          <i class="fa-solid fa-arrow-right-from-bracket text-danger"></i>
+          <span class="text-danger fw-bold">Keluar / Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="main-content">
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="d-flex align-items-center gap-2">
+          <h5 class="fw-bold mb-0 text-dark" id="pageTitle">Dashboard Ringkasan</h5>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <div class="text-end">
+            <div class="fw-bold small" id="userDisplayName">TLinspektorat</div>
+            <span class="badge bg-success small" style="font-size:0.7rem;" id="userRoleName">Administrator</span>
+          </div>
+          <div class="bg-light p-2 rounded-circle border">
+            <i class="fa-solid fa-user-circle fs-4 text-secondary"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dynamic Section Contents -->
+      <div class="content-body">
+
+        <!-- SECTION 1: DASHBOARD -->
+        <section id="secDashboard">
+          <div class="row g-4 mb-4">
+            <div class="col-12 col-md-4">
+              <div class="metric-card border-start border-primary border-4">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="text-muted small fw-bold">TOTAL KERUGIAN DAERAH</span>
+                  <div class="metric-icon bg-danger-subtle text-danger">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                  </div>
+                </div>
+                <h3 class="fw-bold text-dark mb-0" id="dashTotalKerugian">Rp 0</h3>
+                <small class="text-muted" style="font-size:0.75rem;">Nilai keseluruhan temuan LHP</small>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="metric-card border-start border-success border-4">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="text-muted small fw-bold">TOTAL PENGEMBALIAN</span>
+                  <div class="metric-icon bg-success-subtle text-success">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </div>
+                </div>
+                <h3 class="fw-bold text-dark mb-0" id="dashTotalPengembalian">Rp 0</h3>
+                <small class="text-muted" style="font-size:0.75rem;">Telah disetor ke Kas Daerah</small>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="metric-card border-start border-warning border-4">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="text-muted small fw-bold">SISA KERUGIAN DAERAH</span>
+                  <div class="metric-icon bg-warning-subtle text-warning">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                  </div>
+                </div>
+                <h3 class="fw-bold text-dark mb-0" id="dashSisaKerugian">Rp 0</h3>
+                <small class="text-muted" style="font-size:0.75rem;">Belum diselesaikan / diproses</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart Diagram Bulat Overall TGR -->
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-7">
+              <div class="card border-0 shadow-sm rounded-4 p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <div>
+                    <h6 class="fw-bold mb-1"><i class="fa-solid fa-chart-pie text-primary me-2"></i>Diagram Bulat Kerugian, Pengembalian & Sisa Kerugian</h6>
+                    <small class="text-muted">Proporsi Total Kerugian, Pengembalian, dan Sisa Kerugian Daerah</small>
+                  </div>
+                  <button class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="loadDashboardData()">
+                    <i class="fa-solid fa-rotate me-1"></i> Refresh
+                  </button>
+                </div>
+                <div style="height: 340px; position: relative;">
+                  <canvas id="chartKerugianOPD"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: DATA OPD / INSTANSI LIST -->
+        <section id="secOPD" class="d-none">
+          <div class="card border-0 shadow-sm rounded-4 p-4">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+              <div>
+                <h5 class="fw-bold mb-1">Daftar OPD / Instansi</h5>
+                <p class="text-muted small mb-0">Kelola dan pilih OPD untuk melihat detail rekapitulasi kerugian daerah</p>
+              </div>
+              <button class="btn btn-primary rounded-3 fw-bold px-3" onclick="openModalOPD()">
+                <i class="fa-solid fa-plus me-2"></i> Tambah OPD Baru
+              </button>
+            </div>
+
+            <!-- Filter Search Input OPD -->
+            <div class="row mb-3 justify-content-end">
+              <div class="col-12 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                  <input type="text" id="inputSearchOPD" class="form-control border-start-0 bg-light form-control-sm" placeholder="Cari Kode / Nama OPD..." onkeyup="filterOPDTable()">
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+              <table class="table custom-table w-100" id="tableOPD">
+                <thead>
+                  <tr>
+                    <th width="5%">No</th>
+                    <th width="15%">Kode / Singkatan</th>
+                    <th width="25%">Nama OPD / Instansi</th>
+                    <th width="10%">Kategori</th>
+                    <th width="15%">Total Kerugian</th>
+                    <th width="15%">Total Pengembalian</th>
+                    <th width="15%">Sisa Kerugian</th>
+                    <th width="10%" class="text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyOPD">
+                  <!-- Rendered via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: REKAPITULASI KERUGIAN PER OPD (DETAIL DRILLDOWN) -->
+        <section id="secRekapDetail" class="d-none">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <button class="btn btn-outline-secondary btn-sm rounded-3" onclick="switchMenu('opd')">
+              <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Data OPD
+            </button>
+            <div class="d-flex gap-2">
+              <button class="btn btn-success btn-sm rounded-3 fw-bold" onclick="exportExcelRekap()">
+                <i class="fa-solid fa-file-excel me-1"></i> Export Excel
+              </button>
+              <button class="btn btn-danger btn-sm rounded-3 fw-bold" onclick="exportPDFRekap()">
+                <i class="fa-solid fa-file-pdf me-1"></i> Export PDF
+              </button>
+            </div>
+          </div>
+
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+            <div class="border-bottom pb-3 mb-3">
+              <span class="badge bg-primary mb-2" id="rekapBadgeKode">KODE OPD</span>
+              <h4 class="fw-bold text-dark mb-1" id="rekapTitleOPD">Nama OPD Selected</h4>
+              <p class="text-muted small mb-0">Rincian Laporan Hasil Pemeriksaan (LHP) & Kerugian Daerah</p>
+            </div>
+
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-primary rounded-3 btn-sm fw-bold" onclick="openModalRekap()">
+                  <i class="fa-solid fa-plus me-1"></i> Input Data Manual
+                </button>
+                <button class="btn btn-outline-primary rounded-3 btn-sm fw-bold" onclick="openModalImportExcel()">
+                  <i class="fa-solid fa-file-import me-1"></i> Import Excel / Drag File
+                </button>
+                <button class="btn btn-outline-danger rounded-3 btn-sm fw-bold" onclick="confirmDeleteAllRekap()">
+                  <i class="fa-solid fa-trash-can me-1"></i> Hapus Semua Data OPD Ini
+                </button>
+              </div>
+
+              <!-- Filter Search Input -->
+              <div class="input-group" style="max-width: 300px;">
+                <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                <input type="text" id="inputSearchRekap" class="form-control border-start-0 bg-light form-control-sm" placeholder="Cari No Reg / Judul / PJ..." onkeyup="filterRekapTable()">
+              </div>
+            </div>
+
+            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+              <table class="table custom-table w-100" id="tableRekap">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>No Register</th>
+                    <th>Penanggung Jawab</th>
+                    <th>Judul Laporan</th>
+                    <th>No LHP</th>
+                    <th>Judul Temuan</th>
+                    <th class="text-end">Total Kerugian</th>
+                    <th class="text-end">Total Pengembalian</th>
+                    <th class="text-end">Sisa Kerugian</th>
+                    <th class="text-center">Dokumen Tindak Lanjut</th>
+                    <th class="text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyRekap">
+                  <!-- Rendered JS -->
+                </tbody>
+                <tfoot id="tfootRekap" class="bg-light fw-bold">
+                  <!-- Totals Rendered JS -->
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: LAPORAN HASIL PEMERIKSAAN (LHP & GOOGLE DRIVE) -->
+        <section id="secLHP" class="d-none">
+          <div class="card border-0 shadow-sm rounded-4 p-4">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+              <div>
+                <h5 class="fw-bold mb-1"><i class="fa-solid fa-folder-open text-primary me-2"></i>Laporan Hasil Pemeriksaan (LHP)</h5>
+                <p class="text-muted small mb-0">Kelola berkas dokumen dan link Google Drive LHP Inspektorat</p>
+              </div>
+              <button class="btn btn-primary rounded-3 fw-bold px-3" onclick="openModalLHP()">
+                <i class="fa-brands fa-google-drive me-2"></i> Tambah Link Google Drive LHP
+              </button>
+            </div>
+
+            <!-- Filter Search Input LHP -->
+            <div class="row mb-3 justify-content-end">
+              <div class="col-12 col-md-4">
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                  <input type="text" id="inputSearchLHP" class="form-control border-start-0 bg-light form-control-sm" placeholder="Cari No LHP / Judul / OPD..." onkeyup="filterLHPTable()">
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+              <table class="table custom-table w-100" id="tableLHP">
+                <thead>
+                  <tr>
+                    <th width="5%">No</th>
+                    <th width="15%">No LHP</th>
+                    <th width="35%">Judul Laporan Hasil Pemeriksaan</th>
+                    <th width="10%">Tahun</th>
+                    <th width="20%">OPD / Instansi</th>
+                    <th width="10%" class="text-center">Link Drive</th>
+                    <th width="10%" class="text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyLHP">
+                  <!-- Rendered via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 5: MANAJEMEN AKUN -->
+        <section id="secManajemen" class="d-none">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+              <div class="card border-0 shadow-sm rounded-4 p-4">
+                <div class="text-center mb-4">
+                  <div class="bg-primary-subtle text-primary d-inline-flex p-3 rounded-circle mb-2">
+                    <i class="fa-solid fa-user-shield fs-3"></i>
+                  </div>
+                  <h5 class="fw-bold mb-1">Manajemen Kredensial Akun</h5>
+                  <p class="text-muted small">Ubah Username dan Password aplikasi Anda</p>
+                </div>
+
+                <form id="formManajemen" onsubmit="handleAccountUpdate(event)">
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold">Username Lama</label>
+                    <input type="text" id="manOldUsername" class="form-control bg-light" placeholder="Username saat ini" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold">Password Lama</label>
+                    <div class="input-group">
+                      <input type="password" id="manOldPassword" class="form-control bg-light border-end-0" placeholder="Password saat ini" required>
+                      <button type="button" class="input-group-text bg-light border-start-0" onclick="togglePasswordVisibility('manOldPassword', 'eyeIconManOld')">
+                        <i class="fa-solid fa-eye text-muted" id="eyeIconManOld"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <hr class="my-4">
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold">Username Baru</label>
+                    <input type="text" id="manNewUsername" class="form-control bg-light" placeholder="Masukkan Username baru" required>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label small fw-bold">Password Baru</label>
+                    <div class="input-group">
+                      <input type="password" id="manNewPassword" class="form-control bg-light border-end-0" placeholder="Masukkan Password baru" required>
+                      <button type="button" class="input-group-text bg-light border-start-0" onclick="togglePasswordVisibility('manNewPassword', 'eyeIconManNew')">
+                        <i class="fa-solid fa-eye text-muted" id="eyeIconManNew"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <button type="submit" id="btnSaveAccount" class="btn btn-primary w-100 fw-bold py-2.5 rounded-3">
+                    <i class="fa-solid fa-floppy-disk me-2"></i> Simpan Perubahan Akun
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- UI Footer -->
+      <footer class="text-center mt-5 mb-4">
+        <small class="text-muted">
+          Generated by <a href="https://gaswebappbuilder.com" target="_blank" class="text-decoration-none text-secondary fw-semibold">GAS WebApp Builder</a>
+        </small>
+      </footer>
+    </main>
+  </div>
+
+  <!-- MODAL 1: FORM OPD -->
+  <div class="modal fade" id="modalOPD" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold" id="modalOPDTitle">Tambah OPD Baru</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formOPD" onsubmit="handleSaveOPD(event)">
+          <div class="modal-body">
+            <input type="hidden" id="opdFormId">
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Kode / Singkatan OPD</label>
+              <input type="text" id="opdKode" class="form-control" placeholder="Contoh: Dinas Pendidikan" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Nama Lengkap OPD / Instansi</label>
+              <input type="text" id="opdNama" class="form-control" placeholder="Contoh: Dinas Pendidikan dan Kebudayaan" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Kategori Instansi</label>
+              <select id="opdKategori" class="form-select">
+                <option value="Dinas">Dinas</option>
+                <option value="Badan">Badan</option>
+                <option value="Kecamatan">Kecamatan</option>
+                <option value="Inspektorat">Inspektorat</option>
+                <option value="Sekretariat">Sekretariat</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-light rounded-3" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" id="btnSaveOPD" class="btn btn-primary rounded-3 fw-bold">Simpan OPD</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: FORM REKAP MANUAL -->
+  <div class="modal fade" id="modalRekap" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold" id="modalRekapTitle">Input Rekap Kerugian manual</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formRekap" onsubmit="handleSaveRekap(event)">
+          <div class="modal-body">
+            <input type="hidden" id="rekapFormId">
+            
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-bold">Nomor Register</label>
+                <input type="text" id="rekapNoReg" class="form-control" placeholder="Contoh: REG-2024-001">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-bold">Nama Penanggung Jawab</label>
+                <input type="text" id="rekapPJ" class="form-control" placeholder="Nama Lengkap / Jabatan">
+              </div>
+
+              <div class="col-12">
+                <label class="form-label small fw-bold">Judul Laporan</label>
+                <input type="text" id="rekapJudulLaporan" class="form-control" placeholder="Laporan Hasil Pemeriksaan...">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold">Nomor LHP</label>
+                <input type="text" id="rekapNoLHP" class="form-control" placeholder="Contoh: LHP/001/INSP/2024">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold">Link Dokumen Tindak Lanjut (Google Drive/URL)</label>
+                <input type="url" id="rekapDokumenTindakLanjut" class="form-control" placeholder="https://..." value="https://drive.google.com">
+              </div>
+
+              <div class="col-12">
+                <label class="form-label small fw-bold">Judul Temuan Pemeriksaan</label>
+                <textarea id="rekapJudulTemuan" class="form-control" rows="2" placeholder="Uraian ringkas temuan kerugian..."></textarea>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold">Total Kerugian (Rp)</label>
+                <input type="number" id="rekapTotalKerugian" class="form-control" min="0" step="0.01" placeholder="0.00" oninput="calculateSisaInput()">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold">Total Pengembalian (Rp)</label>
+                <input type="number" id="rekapTotalPengembalian" class="form-control" min="0" step="0.01" placeholder="0.00" oninput="calculateSisaInput()">
+              </div>
+
+              <div class="col-12">
+                <div class="p-3 bg-light rounded-3 text-end">
+                  <span class="small text-muted me-2">Est. Sisa Kerugian:</span>
+                  <span class="h5 fw-bold text-danger mb-0" id="rekapCalcSisa">Rp 0</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-light rounded-3" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" id="btnSaveRekap" class="btn btn-primary rounded-3 fw-bold">Simpan Rekap</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: IMPORT DRAG & DROP EXCEL -->
+  <div class="modal fade" id="modalImportExcel" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold">Import Data Rekap dari File Excel</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="drag-drop-area mb-3" id="dropArea" onclick="document.getElementById('excelFileInput').click()">
+            <i class="fa-solid fa-cloud-arrow-up fs-1 text-primary mb-2"></i>
+            <h6 class="fw-bold mb-1">Tarik & Lepas File Excel (.xlsx / .xls) ke Sini</h6>
+            <p class="text-muted small mb-0">Atau klik untuk memilih file dari komputer Anda</p>
+            <input type="file" id="excelFileInput" class="d-none" accept=".xlsx, .xls" onchange="handleExcelFileSelect(event)">
+          </div>
+
+          <div class="alert alert-warning py-2 small mb-3">
+            <i class="fa-solid fa-lightbulb me-1"></i> Format Kolom Excel Header fleksibel yang didukung:<br>
+            <code>no_reg | penanggung_jawab | judul_laporan | no_lhp | judul_temuan | total_kerugian | total_pengembalian | dokumen_tindak_lanjut</code><br>
+            <small class="text-muted">(Sistem otomatis mendeteksi variasi spasi, huruf kapital, atau teks rupiah pada file Excel Anda)</small>
+          </div>
+
+          <!-- Preview Table Import -->
+          <div id="excelPreviewWrapper" class="d-none">
+            <h6 class="fw-bold mb-2">Pratinjau Data Impor (<span id="excelRecordCount">0</span> Data):</h6>
+            <div class="table-responsive" style="max-height: 250px;">
+              <table class="table table-sm table-bordered small">
+                <thead class="bg-light">
+                  <tr>
+                    <th>No Reg</th>
+                    <th>Penanggung Jawab</th>
+                    <th>Judul Temuan</th>
+                    <th>Kerugian</th>
+                    <th>Pengembalian</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyExcelPreview"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-light rounded-3" data-bs-dismiss="modal">Batal</button>
+          <button type="button" id="btnSubmitImport" class="btn btn-success rounded-3 fw-bold d-none" onclick="processBulkImport()">
+            <i class="fa-solid fa-file-import me-1"></i> Proses Impor Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: FORM LHP & GOOGLE DRIVE LINK -->
+  <div class="modal fade" id="modalLHP" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold" id="modalLHPTitle">Tambah Link Google Drive LHP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formLHP" onsubmit="handleSaveLHP(event)">
+          <div class="modal-body">
+            <input type="hidden" id="lhpFormId">
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Nomor LHP</label>
+              <input type="text" id="lhpNoLHP" class="form-control" placeholder="Contoh: LHP/001/INSP/2024" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Judul Laporan Hasil Pemeriksaan</label>
+              <input type="text" id="lhpJudul" class="form-control" placeholder="Judul Dokumen LHP..." required>
+            </div>
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <label class="form-label small fw-bold">Tahun LHP</label>
+                <input type="number" id="lhpTahun" class="form-control" placeholder="2024" min="2000" max="2099" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold">OPD / Instansi</label>
+                <input type="text" id="lhpOPD" class="form-control" placeholder="Nama OPD Terkait" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold"><i class="fa-brands fa-google-drive me-1 text-success"></i> Link Google Drive LHP</label>
+              <input type="url" id="lhpLinkDrive" class="form-control" placeholder="https://drive.google.com/..." required>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-light rounded-3" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" id="btnSaveLHP" class="btn btn-primary rounded-3 fw-bold">Simpan Link LHP</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+
+  <script>
+    console.log("App generated using GAS WebApp Builder");
+
+    // GLOBAL APP STATE & MOCK SIMULATION DATABASE
+    let currentUser = null;
+    let currentOPDId = null;
+    let currentOPDData = null;
+    let chartInstance = null;
+    let parsedImportData = [];
+    let currentOPDList = [];
+    let currentRekapList = [];
+    let currentLHPList = [];
+
+    // MOCK DATABASE FOR PREVIEW CANVAS MODE
+    let mockUsers = [
+      { id: 'USR-1', username: 'TLinspektorat', password: 'TLinspektorat#', nama: 'Tim Tindak Lanjut Inspektorat', role: 'Admin' }
+    ];
+
+    let mockOPD = [
+      { id: 'OPD-001', kode_opd: 'Dinas Pendidikan', nama_opd: 'Dinas Pendidikan dan Kebudayaan', kategori: 'Dinas' },
+      { id: 'OPD-002', kode_opd: 'Dinas Kesehatan', nama_opd: 'Dinas Kesehatan, Pengendalian Penduduk dan KB', kategori: 'Dinas' },
+      { id: 'OPD-003', kode_opd: 'PU-PR', nama_opd: 'Dinas Pekerjaan Umum dan Penataan Ruang', kategori: 'Dinas' }
+    ];
+
+    let mockRekap = [
+      {
+        id: 'RK-001', opd_id: 'OPD-001', no_reg: 'REG-2024-01', penanggung_jawab: 'Ahmad Dani, S.E.',
+        judul_laporan: 'Laporan Hasil Pemeriksaan Aset 2023', no_lhp: 'LHP/001/INSP/2023',
+        judul_temuan: 'Kekurangan Volume Pekerjaan Gedung Sekolah', total_kerugian: 150000000,
+        total_pengembalian: 50000000, sisa_kerugian: 100000000, dokumen_tindak_lanjut: 'https://drive.google.com'
+      },
+      {
+        id: 'RK-002', opd_id: 'OPD-002', no_reg: 'REG-2024-02', penanggung_jawab: 'Budi Santoso, SKM',
+        judul_laporan: 'Pemeriksaan Pengadaan Obat 2023', no_lhp: 'LHP/002/INSP/2023',
+        judul_temuan: 'Keterlambatan Penyerahan Barang Farmasi', total_kerugian: 45000000,
+        total_pengembalian: 45000000, sisa_kerugian: 0, dokumen_tindak_lanjut: 'https://drive.google.com'
+      }
+    ];
+
+    let mockLHP = [
+      {
+        id: 'LHP-001', no_lhp: 'LHP/001/INSP/2023', judul_lhp: 'Laporan Hasil Pemeriksaan Aset Dinas Pendidikan T.A 2023',
+        tahun: '2023', opd_nama: 'Dinas Pendidikan dan Kebudayaan', link_drive: 'https://drive.google.com'
+      },
+      {
+        id: 'LHP-002', no_lhp: 'LHP/002/INSP/2023', judul_lhp: 'Laporan Hasil Pemeriksaan Belanja Pengadaan Obat Dinas Kesehatan',
+        tahun: '2023', opd_nama: 'Dinas Kesehatan, Pengendalian Penduduk dan KB', link_drive: 'https://drive.google.com'
+      }
+    ];
+
+    // INITIALIZATION ON DOM READY
+    window.addEventListener('DOMContentLoaded', () => {
+      checkEnvironmentMode();
+      generateCaptcha();
+      checkLoginState();
+      setupDragAndDrop();
+    });
+
+    // ENVIRONMENT & LOADING HELPERS
+    function checkEnvironmentMode() {
+      if (typeof google === 'undefined') {
+        document.getElementById('previewBadge').classList.remove('d-none');
+        document.getElementById('loginInfoBox').classList.remove('d-none');
+      } else {
+        document.getElementById('loginInfoBox').classList.add('d-none');
+      }
+    }
+
+    function startLoading(msg = 'Memuat Data...') {
+      document.getElementById('loadingText').innerText = msg;
+      document.getElementById('loadingOverlay').classList.remove('d-none');
+      
+      const buttons = document.querySelectorAll('button, input[type="submit"]');
+      buttons.forEach(b => b.disabled = true);
+    }
+
+    function endLoading() {
+      document.getElementById('loadingOverlay').classList.add('d-none');
+      
+      const buttons = document.querySelectorAll('button, input[type="submit"]');
+      buttons.forEach(b => b.disabled = false);
+    }
+
+    function formatRupiah(num) {
+  const val = Number(num) || 0;
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(val);
+}
+
+    function togglePasswordVisibility(inputId, eyeIconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(eyeIconId);
+      if (input && icon) {
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+          input.type = 'password';
+          icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+      }
+    }
+
+    function generateCaptcha() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let code = '';
+      for (let i = 0; i < 5; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('captchaCode').innerText = code;
+    }
+
+    // AUTH & SESSION STATE MANAGEMENT
+    function checkLoginState() {
+      try {
+        const saved = localStorage.getItem('lingga_user_session');
+        if (saved) {
+          currentUser = JSON.parse(saved);
+          showAppView();
+        } else {
+          showLoginView();
+        }
+      } catch (e) {
+        showLoginView();
+      }
+    }
+
+    function showLoginView() {
+      document.getElementById('viewApp').classList.add('d-none');
+      document.getElementById('viewLogin').classList.remove('d-none');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('captchaInput').value = '';
+      generateCaptcha();
+    }
+
+    function showAppView() {
+      document.getElementById('viewLogin').classList.add('d-none');
+      document.getElementById('viewApp').classList.remove('d-none');
+      document.getElementById('userDisplayName').innerText = currentUser.nama || currentUser.username;
+      document.getElementById('userRoleName').innerText = currentUser.role || 'User';
+      switchMenu('dashboard');
+    }
+
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      
+      const userVal = document.getElementById('loginUsername').value.trim();
+      const passVal = document.getElementById('loginPassword').value.trim();
+      const captVal = document.getElementById('captchaInput').value.trim().toUpperCase();
+      const realCapt = document.getElementById('captchaCode').innerText.trim().toUpperCase();
+
+      if (captVal !== realCapt) {
+        Swal.fire('Captcha Salah!', 'Silakan masukkan kode captcha yang sesuai.', 'error');
+        generateCaptcha();
+        document.getElementById('captchaInput').value = '';
+        return;
+      }
+
+      startLoading('Memverifikasi Login...');
+
+      if (typeof google === 'undefined') {
+        // Mode Simulasi Preview
+        setTimeout(() => {
+          endLoading();
+          const matched = mockUsers.find(u => u.username === userVal && u.password === passVal);
+          if (matched) {
+            currentUser = { id: matched.id, username: matched.username, nama: matched.nama, role: matched.role };
+            try { localStorage.setItem('lingga_user_session', JSON.stringify(currentUser)); } catch (e){}
+            Swal.fire({ icon: 'success', title: 'Login Berhasil (Simulasi)', timer: 1200, showConfirmButton: false });
+            showAppView();
+          } else {
+            Swal.fire('Gagal Login', 'Username atau Password tidak terdaftar!', 'error');
+            generateCaptcha();
+          }
+        }, 800);
+      } else {
+        // Mode Production (GAS Backend)
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            console.log('Login Response:', res);
+            if (res.success) {
+              currentUser = res.user;
+              try { localStorage.setItem('lingga_user_session', JSON.stringify(currentUser)); } catch (e){}
+              Swal.fire({ icon: 'success', title: 'Login Berhasil', timer: 1200, showConfirmButton: false });
+              showAppView();
+            } else {
+              Swal.fire('Gagal Login', res.message, 'error');
+              generateCaptcha();
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error Server', err.message, 'error');
+          })
+          .loginUser({ username: userVal, password: passVal });
+      }
+    }
+
+    function handleLogout() {
+      Swal.fire({
+        title: 'Konfirmasi Keluar',
+        text: 'Apakah Anda yakin ingin keluar dari aplikasi?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Keluar',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          try { localStorage.removeItem('lingga_user_session'); } catch (e){}
+          currentUser = null;
+          showLoginView();
+        }
+      });
+    }
+
+    // MENU SWITCHING LOGIC
+    function switchMenu(menu) {
+      document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('secDashboard').classList.add('d-none');
+      document.getElementById('secOPD').classList.add('d-none');
+      document.getElementById('secRekapDetail').classList.add('d-none');
+      document.getElementById('secLHP').classList.add('d-none');
+      document.getElementById('secManajemen').classList.add('d-none');
+
+      if (menu === 'dashboard') {
+        document.getElementById('btnNavDashboard').classList.add('active');
+        document.getElementById('pageTitle').innerText = 'Dashboard Ringkasan';
+        document.getElementById('secDashboard').classList.remove('d-none');
+        loadDashboardData();
+      } else if (menu === 'opd') {
+        document.getElementById('btnNavOPD').classList.add('active');
+        document.getElementById('pageTitle').innerText = 'Manajemen OPD / Instansi';
+        document.getElementById('secOPD').classList.remove('d-none');
+        loadOPDData();
+      } else if (menu === 'lhp') {
+        document.getElementById('btnNavLHP').classList.add('active');
+        document.getElementById('pageTitle').innerText = 'Laporan Hasil Pemeriksaan (LHP)';
+        document.getElementById('secLHP').classList.remove('d-none');
+        loadLHPData();
+      } else if (menu === 'manajemen') {
+        document.getElementById('btnNavManajemen').classList.add('active');
+        document.getElementById('pageTitle').innerText = 'Manajemen Pengaturan Akun';
+        document.getElementById('secManajemen').classList.remove('d-none');
+      }
+    }
+
+    // DASHBOARD & CHART LOGIC (DIAGRAM BULAT / DOUGHNUT CHART)
+    function loadDashboardData() {
+      startLoading('Memuat Ringkasan Dashboard...');
+
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          let totalKerugian = 0;
+          let totalPengembalian = 0;
+
+          mockRekap.forEach(r => {
+            totalKerugian += Number(r.total_kerugian) || 0;
+            totalPengembalian += Number(r.total_pengembalian) || 0;
+          });
+
+          const sisa = totalKerugian - totalPengembalian;
+          updateDashboardUI(totalKerugian, totalPengembalian, sisa);
+
+          const labels = ['Total Kerugian Daerah', 'Total Pengembalian', 'Sisa Kerugian Daerah'];
+          const values = [totalKerugian, totalPengembalian, sisa];
+
+          renderChart(labels, values);
+        }, 500);
+      } else {
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            console.log('Dashboard Data:', res);
+            if (res.success) {
+              updateDashboardUI(res.summary.totalKerugian, res.summary.totalPengembalian, res.summary.sisaKerugian);
+              renderChart(res.chartSummary.labels, res.chartSummary.values);
+            } else {
+              Swal.fire('Gagal', res.message, 'error');
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error', err.message, 'error');
+          })
+          .getDashboardData();
+      }
+    }
+
+    function updateDashboardUI(kerugian, pengembalian, sisa) {
+      document.getElementById('dashTotalKerugian').innerText = formatRupiah(kerugian);
+      document.getElementById('dashTotalPengembalian').innerText = formatRupiah(pengembalian);
+      document.getElementById('dashSisaKerugian').innerText = formatRupiah(sisa);
+    }
+
+    function renderChart(labels, values) {
+      const ctx = document.getElementById('chartKerugianOPD').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
+
+      chartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: values,
+              backgroundColor: ['#ef4444', '#22c55e', '#f59e0b'],
+              hoverOffset: 8,
+              borderWidth: 2,
+              borderColor: '#ffffff'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 20,
+                font: {
+                  family: 'Plus Jakarta Sans',
+                  size: 12,
+                  weight: '600'
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ` ${ctx.label}: ${formatRupiah(ctx.raw)}`
+              }
+            }
+          },
+          cutout: '65%'
+        }
+      });
+    }
+
+    // OPD MANAGEMENT LOGIC & SEARCH FILTER
+    function loadOPDData() {
+      startLoading('Memuat Data OPD...');
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          currentOPDList = mockOPD;
+          renderTableOPD(mockOPD);
+        }, 400);
+      } else {
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            console.log('OPD Data:', res);
+            if (res.success) {
+              currentOPDList = res.data;
+              renderTableOPD(res.data);
+            } else {
+              Swal.fire('Gagal', res.message, 'error');
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error', err.message, 'error');
+          })
+          .getOPDList();
+      }
+    }
+
+    function renderTableOPD(data) {
+      const tbody = document.getElementById('tbodyOPD');
+      tbody.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">Belum ada data OPD/Instansi.</td></tr>`;
+        return;
+      }
+
+      data.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td><span class="badge bg-secondary-subtle text-secondary fw-bold">${item.kode_opd}</span></td>
+          <td>
+            <a href="javascript:void(0)" class="fw-bold text-primary text-decoration-none" onclick="openRekapDetail('${item.id}')">
+              ${item.nama_opd}
+            </a>
+          </td>
+          <td><span class="badge bg-light text-dark border">${item.kategori || 'Dinas'}</span></td>
+
+          <td class="text-end fw-bold text-danger">
+            ${formatRupiah(Number(item.total_kerugian) || 0)}
+          </td>
+
+          <td class="text-end fw-bold text-success">
+            ${formatRupiah(Number(item.total_pengembalian) || 0)}
+          </td>
+
+          <td class="text-end fw-bold text-warning">
+            ${formatRupiah(Number(item.sisa_kerugian) || 0)}
+          </td>
+
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-primary me-1" onclick="editOPD('${item.id}', '${item.kode_opd}', '${item.nama_opd}', '${item.kategori}')" title="Edit OPD">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteOPD('${item.id}', '${item.nama_opd}')" title="Hapus OPD">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterOPDTable() {
+      const query = document.getElementById('inputSearchOPD').value.toLowerCase();
+      const filtered = currentOPDList.filter(item => {
+        return (
+          (item.kode_opd && item.kode_opd.toLowerCase().includes(query)) ||
+          (item.nama_opd && item.nama_opd.toLowerCase().includes(query)) ||
+          (item.kategori && item.kategori.toLowerCase().includes(query))
+        );
+      });
+      renderTableOPD(filtered);
+    }
+
+    function openModalOPD() {
+      document.getElementById('formOPD').reset();
+      document.getElementById('opdFormId').value = '';
+      document.getElementById('modalOPDTitle').innerText = 'Tambah OPD Baru';
+      const modal = new bootstrap.Modal(document.getElementById('modalOPD'));
+      modal.show();
+    }
+
+    function editOPD(id, kode, nama, kategori) {
+      document.getElementById('opdFormId').value = id;
+      document.getElementById('opdKode').value = kode;
+      document.getElementById('opdNama').value = nama;
+      document.getElementById('opdKategori').value = kategori || 'Dinas';
+      document.getElementById('modalOPDTitle').innerText = 'Edit Data OPD';
+      const modal = new bootstrap.Modal(document.getElementById('modalOPD'));
+      modal.show();
+    }
+
+    function handleSaveOPD(event) {
+      event.preventDefault();
+      const id = document.getElementById('opdFormId').value;
+      const formData = {
+        id: id,
+        kode_opd: document.getElementById('opdKode').value.trim(),
+        nama_opd: document.getElementById('opdNama').value.trim(),
+        kategori: document.getElementById('opdKategori').value
+      };
+
+      startLoading('Menyimpan OPD...');
+
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          if (id) {
+            const index = mockOPD.findIndex(o => o.id === id);
+            if (index !== -1) mockOPD[index] = { ...mockOPD[index], ...formData };
+          } else {
+            formData.id = 'OPD-' + Date.now().toString().slice(-6);
+            mockOPD.push(formData);
+          }
+          bootstrap.Modal.getInstance(document.getElementById('modalOPD')).hide();
+          Swal.fire('Berhasil (Simulasi)', 'Data OPD tersimpan di memori browser', 'success');
+          loadOPDData();
+        }, 500);
+      } else {
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            if (res.success) {
+              bootstrap.Modal.getInstance(document.getElementById('modalOPD')).hide();
+              Swal.fire('Berhasil', res.message, 'success');
+              loadOPDData();
+            } else {
+              Swal.fire('Gagal', res.message, 'error');
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error', err.message, 'error');
+          })
+          .saveOPD(formData);
+      }
+    }
+
+    function confirmDeleteOPD(id, nama) {
+      Swal.fire({
+        title: 'Hapus OPD ini?',
+        text: `Hapus ${nama}? Seluruh data rekapitulasi kerugian terkait juga akan terhapus!`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        confirmButtonText: 'Ya, Hapus OPD'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          startLoading('Menghapus OPD...');
+          if (typeof google === 'undefined') {
+            setTimeout(() => {
+              endLoading();
+              mockOPD = mockOPD.filter(o => o.id !== id);
+              mockRekap = mockRekap.filter(r => r.opd_id !== id);
+              Swal.fire('Berhasil (Simulasi)', 'OPD telah dihapus', 'success');
+              loadOPDData();
+            }, 400);
+          } else {
+            google.script.run
+              .withSuccessHandler(res => {
+                endLoading();
+                if (res.success) {
+                  Swal.fire('Terhapus', res.message, 'success');
+                  loadOPDData();
+                } else {
+                  Swal.fire('Gagal', res.message, 'error');
+                }
+              })
+              .withFailureHandler(err => {
+                endLoading();
+                Swal.fire('Error', err.message, 'error');
+              })
+              .deleteOPD(id);
+          }
+        }
+      });
+    }
+
+    // REKAPITULASI KERUGIAN PER OPD LOGIC
+    function openRekapDetail(opdId) {
+      currentOPDId = opdId;
+      document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('secDashboard').classList.add('d-none');
+      document.getElementById('secOPD').classList.add('d-none');
+      document.getElementById('secManajemen').classList.add('d-none');
+      document.getElementById('secLHP').classList.add('d-none');
+      document.getElementById('secRekapDetail').classList.remove('d-none');
+
+      loadRekapOPD(opdId);
+    }
+
+    function loadRekapOPD(opdId) {
+      startLoading('Memuat Rekapitulasi Kerugian OPD...');
+
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          const opd = mockOPD.find(o => o.id === opdId) || { nama_opd: 'OPD Lingga', kode_opd: 'OPD' };
+          currentOPDData = opd;
+          document.getElementById('rekapTitleOPD').innerText = opd.nama_opd;
+          document.getElementById('rekapBadgeKode').innerText = opd.kode_opd;
+
+          const data = mockRekap.filter(r => r.opd_id === opdId);
+          currentRekapList = data;
+          renderTableRekap(data);
+        }, 400);
+      } else {
+        google.script.run
+          .withSuccessHandler(resOPD => {
+            if (resOPD.success) {
+              const opd = resOPD.data.find(o => o.id === opdId) || { nama_opd: 'OPD Lingga', kode_opd: 'OPD' };
+              currentOPDData = opd;
+              document.getElementById('rekapTitleOPD').innerText = opd.nama_opd;
+              document.getElementById('rekapBadgeKode').innerText = opd.kode_opd;
+
+              google.script.run
+                .withSuccessHandler(res => {
+                  endLoading();
+                  if (res.success) {
+                    currentRekapList = res.data;
+                    renderTableRekap(res.data);
+                  } else {
+                    Swal.fire('Gagal', res.message, 'error');
+                  }
+                })
+                .withFailureHandler(err => {
+                  endLoading();
+                  Swal.fire('Error', err.message, 'error');
+                })
+                .getRekapKerugian(opdId);
+            }
+          })
+          .getOPDList();
+      }
+    }
+
+    function renderTableRekap(data) {
+      const tbody = document.getElementById('tbodyRekap');
+      const tfoot = document.getElementById('tfootRekap');
+      tbody.innerHTML = '';
+      tfoot.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" class="text-center text-muted py-4">Belum ada data rekapitulasi kerugian untuk OPD ini.</td></tr>`;
+        return;
+      }
+
+      let grandTotalKerugian = 0;
+      let grandTotalPengembalian = 0;
+      let grandTotalSisa = 0;
+
+      data.forEach((item, idx) => {
+        const kerugian = Number(item.total_kerugian) || 0;
+        const pengembalian = Number(item.total_pengembalian) || 0;
+        const sisa = kerugian - pengembalian;
+
+        grandTotalKerugian += kerugian;
+        grandTotalPengembalian += pengembalian;
+        grandTotalSisa += sisa;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${idx + 1}</td>
+          <td><span class="fw-bold">${item.no_reg}</span></td>
+          <td>${item.penanggung_jawab}</td>
+          <td class="small">${item.judul_laporan}</td>
+          <td class="small">${item.no_lhp}</td>
+          <td class="small">${item.judul_temuan}</td>
+          <td class="text-end fw-bold text-danger">${formatRupiah(kerugian)}</td>
+          <td class="text-end fw-bold text-success">${formatRupiah(pengembalian)}</td>
+          <td class="text-end fw-bold text-warning">${formatRupiah(sisa)}</td>
+          <td class="text-center">
+            ${item.link_lhp
+  ? `<a href="${item.link_lhp}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-light border">
+       <i class="fa-solid fa-arrow-up-right-from-square text-primary"></i> Buka
+     </a>`
+  : '-'}
+          </td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-primary me-1" onclick="editRekap('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteRekap('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Render Footer Totals
+      tfoot.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-end fw-bold">TOTAL KESELURUHAN:</td>
+          <td class="text-end text-danger">${formatRupiah(grandTotalKerugian)}</td>
+          <td class="text-end text-success">${formatRupiah(grandTotalPengembalian)}</td>
+          <td class="text-end text-warning">${formatRupiah(grandTotalSisa)}</td>
+          <td colspan="2"></td>
+        </tr>
+      `;
+    }
+
+    function filterRekapTable() {
+  const input = document.getElementById('inputSearchRekap');
+  const query = (input?.value || '').trim().toLowerCase();
+
+  // Jika kotak pencarian kosong, tampilkan semua data
+  if (!query) {
+    renderTableRekap(currentRekapList);
+    return;
+  }
+
+  const filtered = currentRekapList.filter(item => {
+    // Cari di SEMUA kolom/data yang dimiliki item
+    return Object.values(item).some(value => {
+      if (value === null || value === undefined) return false;
+
+      return String(value)
+        .toLowerCase()
+        .includes(query);
+    });
+  });
+
+  renderTableRekap(filtered);
+}
+
+    function calculateSisaInput() {
+      const k = Number(document.getElementById('rekapTotalKerugian').value) || 0;
+      const p = Number(document.getElementById('rekapTotalPengembalian').value) || 0;
+      document.getElementById('rekapCalcSisa').innerText = formatRupiah(k - p);
+    }
+
+    function openModalRekap() {
+      document.getElementById('formRekap').reset();
+      document.getElementById('rekapFormId').value = '';
+      document.getElementById('modalRekapTitle').innerText = 'Input Rekap Kerugian Manual';
+      calculateSisaInput();
+      const modal = new bootstrap.Modal(document.getElementById('modalRekap'));
+      modal.show();
+    }
+
+    function editRekap(id) {
+      const item = currentRekapList.find(r => r.id === id);
+      if (!item) return;
+
+      document.getElementById('rekapFormId').value = item.id;
+      document.getElementById('rekapNoReg').value = item.no_reg;
+      document.getElementById('rekapPJ').value = item.penanggung_jawab;
+      document.getElementById('rekapJudulLaporan').value = item.judul_laporan;
+      document.getElementById('rekapNoLHP').value = item.no_lhp;
+      document.getElementById('rekapDokumenTindakLanjut').value = item.link_lhp || '';
+      document.getElementById('rekapJudulTemuan').value = item.judul_temuan;
+      document.getElementById('rekapTotalKerugian').value = item.total_kerugian;
+      document.getElementById('rekapTotalPengembalian').value = item.total_pengembalian;
+      
+      calculateSisaInput();
+      document.getElementById('modalRekapTitle').innerText = 'Edit Rekap Kerugian';
+      const modal = new bootstrap.Modal(document.getElementById('modalRekap'));
+      modal.show();
+    }
+
+    function handleSaveRekap(event) {
+      event.preventDefault();
+      const id = document.getElementById('rekapFormId').value;
+      const kerugian = Number(document.getElementById('rekapTotalKerugian').value) || 0;
+      const pengembalian = Number(document.getElementById('rekapTotalPengembalian').value) || 0;
+
+      const formData = {
+        id: id,
+        opd_id: currentOPDId,
+        no_reg: document.getElementById('rekapNoReg').value.trim(),
+        penanggung_jawab: document.getElementById('rekapPJ').value.trim(),
+        judul_laporan: document.getElementById('rekapJudulLaporan').value.trim(),
+        no_lhp: document.getElementById('rekapNoLHP').value.trim(),
+        link_lhp: document.getElementById('rekapDokumenTindakLanjut').value.trim(),
+        judul_temuan: document.getElementById('rekapJudulTemuan').value.trim(),
+        total_kerugian: kerugian,
+        total_pengembalian: pengembalian,
+        sisa_kerugian: kerugian - pengembalian
+      };
+
+      startLoading('Menyimpan Rekap Kerugian...');
+
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          if (id) {
+            const idx = mockRekap.findIndex(r => r.id === id);
+            if (idx !== -1) mockRekap[idx] = { ...mockRekap[idx], ...formData };
+          } else {
+            formData.id = 'RK-' + Date.now().toString().slice(-6);
+            mockRekap.push(formData);
+          }
+          bootstrap.Modal.getInstance(document.getElementById('modalRekap')).hide();
+          Swal.fire('Berhasil (Simulasi)', 'Data rekap disimpan', 'success');
+          loadRekapOPD(currentOPDId);
+        }, 500);
+      } else {
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            if (res.success) {
+              bootstrap.Modal.getInstance(document.getElementById('modalRekap')).hide();
+              Swal.fire('Berhasil', res.message, 'success');
+              loadRekapOPD(currentOPDId);
+            } else {
+              Swal.fire('Gagal', res.message, 'error');
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error', err.message, 'error');
+          })
+          .saveRekapKerugian(formData);
+      }
+    }
+
+    function confirmDeleteRekap(id) {
+      Swal.fire({
+        title: 'Hapus Data Ini?',
+        text: 'Data rekap kerugian ini akan dihapus permanen.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        confirmButtonText: 'Ya, Hapus'
+      }).then(res => {
+        if (res.isConfirmed) {
+          startLoading('Menghapus Data...');
+          if (typeof google === 'undefined') {
+            setTimeout(() => {
+              endLoading();
+              mockRekap = mockRekap.filter(r => r.id !== id);
+              Swal.fire('Berhasil (Simulasi)', 'Data rekap terhapus', 'success');
+              loadRekapOPD(currentOPDId);
+            }, 400);
+          } else {
+            google.script.run
+              .withSuccessHandler(r => {
+                endLoading();
+                if (r.success) {
+                  Swal.fire('Terhapus', r.message, 'success');
+                  loadRekapOPD(currentOPDId);
+                } else {
+                  Swal.fire('Gagal', r.message, 'error');
+                }
+              })
+              .withFailureHandler(err => {
+                endLoading();
+                Swal.fire('Error', err.message, 'error');
+              })
+              .deleteRekapKerugian(id);
+          }
+        }
+      });
+    }
+
+    function confirmDeleteAllRekap() {
+      Swal.fire({
+        title: 'Hapus SEMUA Rekap OPD Ini?',
+        text: 'Seluruh data rekapitulasi kerugian pada OPD ini akan dihapus!',
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        confirmButtonText: 'Ya, Hapus Semua'
+      }).then(res => {
+        if (res.isConfirmed) {
+          startLoading('Menghapus Seluruh Data Rekap OPD...');
+          if (typeof google === 'undefined') {
+            setTimeout(() => {
+              endLoading();
+              mockRekap = mockRekap.filter(r => r.opd_id !== currentOPDId);
+              Swal.fire('Berhasil (Simulasi)', 'Seluruh data rekap OPD terhapus', 'success');
+              loadRekapOPD(currentOPDId);
+            }, 500);
+          } else {
+            google.script.run
+              .withSuccessHandler(r => {
+                endLoading();
+                if (r.success) {
+                  Swal.fire('Terhapus', r.message, 'success');
+                  loadRekapOPD(currentOPDId);
+                } else {
+                  Swal.fire('Gagal', r.message, 'error');
+                }
+              })
+              .withFailureHandler(err => {
+                endLoading();
+                Swal.fire('Error', err.message, 'error');
+              })
+              .deleteAllRekapKerugian(currentOPDId);
+          }
+        }
+      });
+    }
+
+    // MENU LHP (LAPORAN HASIL PEMERIKSAAN & LINK GOOGLE DRIVE) LOGIC
+    function loadLHPData() {
+      startLoading('Memuat Data LHP & Drive...');
+
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          currentLHPList = mockLHP;
+          renderTableLHP(mockLHP);
+        }, 400);
+      } else {
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            if (res.success) {
+              currentLHPList = res.data;
+              renderTableLHP(res.data);
+            } else {
+              Swal.fire('Gagal', res.message, 'error');
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error', err.message, 'error');
+          })
+          .getLHPList();
+      }
+    }
+
+    function renderTableLHP(data) {
+      const tbody = document.getElementById('tbodyLHP');
+      tbody.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted py-4">Belum ada dokumen LHP / Link Google Drive yang ditambahkan.</td></tr>`;
+        return;
+      }
+
+      data.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td><span class="badge bg-primary-subtle text-primary fw-bold">${item.no_lhp}</span></td>
+          <td class="fw-bold text-dark">${item.judul_lhp}</td>
+          <td>${item.tahun}</td>
+          <td class="small text-muted">${item.opd_nama}</td>
+          <td class="text-center">
+            <a href="${item.link_drive}" target="_blank" class="btn btn-sm btn-outline-success fw-bold">
+              <i class="fa-brands fa-google-drive me-1"></i> Buka Drive
+            </a>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-primary me-1" onclick="editLHP('${item.id}')" title="Edit LHP"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteLHP('${item.id}')" title="Hapus LHP"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterLHPTable() {
+      const query = document.getElementById('inputSearchLHP').value.toLowerCase();
+      const filtered = currentLHPList.filter(item => {
+        return (
+          item.no_lhp.toLowerCase().includes(query) ||
+          item.judul_lhp.toLowerCase().includes(query) ||
+          item.opd_nama.toLowerCase().includes(query) ||
+          item.tahun.toString().includes(query)
+        );
+      });
+      renderTableLHP(filtered);
+    }
+
+    function openModalLHP() {
+      document.getElementById('formLHP').reset();
+      document.getElementById('lhpFormId').value = '';
+      document.getElementById('lhpTahun').value = new Date().getFullYear();
+      document.getElementById('modalLHPTitle').innerText = 'Tambah Link Google Drive LHP';
+      const modal = new bootstrap.Modal(document.getElementById('modalLHP'));
+      modal.show();
+    }
+
+    function editLHP(id) {
+      const item = currentLHPList.find(l => l.id === id);
+      if (!item) return;
+
+      document.getElementById('lhpFormId').value = item.id;
+      document.getElementById('lhpNoLHP').value = item.no_lhp;
+      document.getElementById('lhpJudul').value = item.judul_lhp;
+      document.getElementById('lhpTahun').value = item.tahun;
+      document.getElementById('lhpOPD').value = item.opd_nama;
+      document.getElementById('lhpLinkDrive').value = item.link_drive;
+
+      document.getElementById('modalLHPTitle').innerText = 'Edit Link Google Drive LHP';
+      const modal = new bootstrap.Modal(document.getElementById('modalLHP'));
+      modal.show();
+    }
+
+    function handleSaveLHP(event) {
+      event.preventDefault();
+      const id = document.getElementById('lhpFormId').value;
+      const formData = {
+        id: id,
+        no_lhp: document.getElementById('lhpNoLHP').value.trim(),
+        judul_lhp: document.getElementById('lhpJudul').value.trim(),
+        tahun: document.getElementById('lhpTahun').value,
+        opd_nama: document.getElementById('lhpOPD').value.trim(),
+        link_drive: document.getElementById('lhpLinkDrive').value.trim()
+      };
+
+      startLoading('Menyimpan Data LHP...');
+
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          if (id) {
+            const idx = mockLHP.findIndex(l => l.id === id);
+            if (idx !== -1) mockLHP[idx] = { ...mockLHP[idx], ...formData };
+          } else {
+            formData.id = 'LHP-' + Date.now().toString().slice(-6);
+            mockLHP.push(formData);
+          }
+          bootstrap.Modal.getInstance(document.getElementById('modalLHP')).hide();
+          Swal.fire('Berhasil (Simulasi)', 'Link Google Drive LHP disimpan', 'success');
+          loadLHPData();
+        }, 500);
+      } else {
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            if (res.success) {
+              bootstrap.Modal.getInstance(document.getElementById('modalLHP')).hide();
+              Swal.fire('Berhasil', res.message, 'success');
+              loadLHPData();
+            } else {
+              Swal.fire('Gagal', res.message, 'error');
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error', err.message, 'error');
+          })
+          .saveLHP(formData);
+      }
+    }
+
+    function confirmDeleteLHP(id) {
+      Swal.fire({
+        title: 'Hapus LHP Ini?',
+        text: 'Link LHP akan dihapus dari daftar.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        confirmButtonText: 'Ya, Hapus'
+      }).then(res => {
+        if (res.isConfirmed) {
+          startLoading('Menghapus Data LHP...');
+          if (typeof google === 'undefined') {
+            setTimeout(() => {
+              endLoading();
+              mockLHP = mockLHP.filter(l => l.id !== id);
+              Swal.fire('Berhasil (Simulasi)', 'Data LHP terhapus', 'success');
+              loadLHPData();
+            }, 400);
+          } else {
+            google.script.run
+              .withSuccessHandler(r => {
+                endLoading();
+                if (r.success) {
+                  Swal.fire('Terhapus', r.message, 'success');
+                  loadLHPData();
+                } else {
+                  Swal.fire('Gagal', r.message, 'error');
+                }
+              })
+              .withFailureHandler(err => {
+                endLoading();
+                Swal.fire('Error', err.message, 'error');
+              })
+              .deleteLHP(id);
+          }
+        }
+      });
+    }
+
+    // DRAG AND DROP EXCEL PARSER LOGIC WITH SMART HEADER NORMALIZATION
+    function setupDragAndDrop() {
+      const dropArea = document.getElementById('dropArea');
+      if (!dropArea) return;
+
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+      });
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, () => dropArea.classList.add('drag-over'), false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, () => dropArea.classList.remove('drag-over'), false);
+      });
+
+      dropArea.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length > 0) processExcelFile(files[0]);
+      });
+    }
+
+    function openModalImportExcel() {
+      parsedImportData = [];
+      document.getElementById('excelFileInput').value = '';
+      document.getElementById('excelPreviewWrapper').classList.add('d-none');
+      document.getElementById('btnSubmitImport').classList.add('d-none');
+      const modal = new bootstrap.Modal(document.getElementById('modalImportExcel'));
+      modal.show();
+    }
+
+    function handleExcelFileSelect(e) {
+      if (e.target.files.length > 0) {
+        processExcelFile(e.target.files[0]);
+      }
+    }
+
+    function parseExcelNumber(val) {
+      if (typeof val === 'number') return val;
+      if (!val) return 0;
+      let str = val.toString().replace(/[^0-9,-]/g, '').replace(',', '.');
+      return Number(str) || 0;
+    }
+
+    function normalizeExcelRow(row) {
+      const normalized = {
+        no_reg: '',
+        penanggung_jawab: '',
+        judul_laporan: '',
+        no_lhp: '',
+        judul_temuan: '',
+        total_kerugian: 0,
+        total_pengembalian: 0,
+        dokumen_tindak_lanjut: ''
+      };
+
+      Object.keys(row).forEach(key => {
+        const cleanKey = key.toString().toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+        const rawVal = row[key];
+        if (rawVal === undefined || rawVal === null) return;
+
+        if (cleanKey.includes('noreg') || cleanKey.includes('nomorreg') || cleanKey.includes('register')) {
+          normalized.no_reg = String(rawVal).trim();
+        } else if (cleanKey.includes('penanggungjawab') || cleanKey.includes('pj') || cleanKey.includes('namapj')) {
+          normalized.penanggung_jawab = String(rawVal).trim();
+        } else if (cleanKey.includes('judullaporan') || cleanKey.includes('laporan')) {
+          normalized.judul_laporan = String(rawVal).trim();
+        } else if (cleanKey.includes('nolhp') || cleanKey.includes('nomorlhp')) {
+          normalized.no_lhp = String(rawVal).trim();
+        } else if (cleanKey.includes('judultemuan') || cleanKey.includes('temuan')) {
+          normalized.judul_temuan = String(rawVal).trim();
+        } else if (cleanKey.includes('totalkerugian') || cleanKey.includes('kerugian') || cleanKey.includes('nilai')) {
+          normalized.total_kerugian = parseExcelNumber(rawVal);
+        } else if (cleanKey.includes('totalpengembalian') || cleanKey.includes('pengembalian') || cleanKey.includes('setor')) {
+          normalized.total_pengembalian = parseExcelNumber(rawVal);
+        } else if (cleanKey.includes('link') || cleanKey.includes('url') || cleanKey.includes('drive')) {
+          normalized.dokumen_tindak_lanjut = String(rawVal).trim();
+        }
+      });
+
+      return normalized;
+    }
+
+    function processExcelFile(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const rawJson = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+
+          if (rawJson.length === 0) {
+            Swal.fire('File Kosong', 'Tidak ada baris data yang ditemukan di file Excel.', 'warning');
+            return;
+          }
+
+          const normalizedData = rawJson.map(row => normalizeExcelRow(row));
+          parsedImportData = normalizedData;
+          renderExcelPreview(normalizedData);
+        } catch (err) {
+          Swal.fire('Gagal Membaca Excel', 'Pastikan format file .xlsx atau .xls valid: ' + err.message, 'error');
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function renderExcelPreview(rows) {
+      const tbody = document.getElementById('tbodyExcelPreview');
+      tbody.innerHTML = '';
+      document.getElementById('excelRecordCount').innerText = rows.length;
+
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.no_reg || '-'}</td>
+          <td>${r.penanggung_jawab || '-'}</td>
+          <td>${r.judul_temuan || '-'}</td>
+          <td class="text-danger fw-bold">${formatRupiah(r.total_kerugian || 0)}</td>
+          <td class="text-success fw-bold">${formatRupiah(r.total_pengembalian || 0)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('excelPreviewWrapper').classList.remove('d-none');
+      document.getElementById('btnSubmitImport').classList.remove('d-none');
+    }
+
+    function processBulkImport() {
+      if (parsedImportData.length === 0) return;
+
+      startLoading(`Mengimpor ${parsedImportData.length} data Excel...`);
+
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          parsedImportData.forEach(row => {
+            const k = Number(row.total_kerugian) || 0;
+            const p = Number(row.total_pengembalian) || 0;
+            mockRekap.push({
+              id: 'RK-' + Math.floor(Math.random()*899999 + 100000),
+              opd_id: currentOPDId,
+              no_reg: row.no_reg || '-',
+              penanggung_jawab: row.penanggung_jawab || '-',
+              judul_laporan: row.judul_laporan || '-',
+              no_lhp: row.no_lhp || '-',
+              judul_temuan: row.judul_temuan || '-',
+              total_kerugian: k,
+              total_pengembalian: p,
+              sisa_kerugian: k - p,
+              dokumen_tindak_lanjut: row.dokumen_tindak_lanjut || '#'
+            });
+          });
+          bootstrap.Modal.getInstance(document.getElementById('modalImportExcel')).hide();
+          Swal.fire('Berhasil (Simulasi)', `${parsedImportData.length} data berhasil diimpor!`, 'success');
+          loadRekapOPD(currentOPDId);
+        }, 600);
+      } else {
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            if (res.success) {
+              bootstrap.Modal.getInstance(document.getElementById('modalImportExcel')).hide();
+              Swal.fire('Berhasil Impor', res.message, 'success');
+              loadRekapOPD(currentOPDId);
+            } else {
+              Swal.fire('Gagal', res.message, 'error');
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error Impor', err.message, 'error');
+          })
+          .bulkSaveRekapKerugian(currentOPDId, parsedImportData);
+      }
+    }
+
+    // EXPORT PDF AND EXCEL REKAP
+    function exportExcelRekap() {
+      if (!currentRekapList || currentRekapList.length === 0) {
+        Swal.fire('Peringatan', 'Tidak ada data rekap untuk diekspor.', 'warning');
+        return;
+      }
+
+      const excelRows = currentRekapList.map((r, i) => ({
+        'No': i + 1,
+        'No Register': r.no_reg,
+        'Penanggung Jawab': r.penanggung_jawab,
+        'Judul Laporan': r.judul_laporan,
+        'No LHP': r.no_lhp,
+        'Judul Temuan': r.judul_temuan,
+        'Total Kerugian (Rp)': Number(r.total_kerugian) || 0,
+        'Total Pengembalian (Rp)': Number(r.total_pengembalian) || 0,
+        'Sisa Kerugian (Rp)': (Number(r.total_kerugian)||0) - (Number(r.total_pengembalian)||0),
+        'Dokumen Tindak Lanjut': r.link_lhp
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(excelRows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Rekap TGR");
+
+      const opdName = (currentOPDData ? currentOPDData.kode_opd : 'OPD').replace(/[^a-zA-Z0-9]/g, '_');
+      XLSX.writeFile(workbook, `Rekap_Kerugian_${opdName}.xlsx`);
+    }
+
+    function exportPDFRekap() {
+      if (!currentRekapList || currentRekapList.length === 0) {
+        Swal.fire('Peringatan', 'Tidak ada data rekap untuk diekspor ke PDF.', 'warning');
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('landscape');
+
+      const opdTitle = currentOPDData ? currentOPDData.nama_opd : 'OPD Lingga';
+
+      doc.setFontSize(14);
+      doc.text("REKAPITULASI KERUGIAN DAERAH KABUPATEN LINGGA", 14, 15);
+      doc.setFontSize(11);
+      doc.text(`OPD / Instansi: ${opdTitle}`, 14, 22);
+
+      const tableData = currentRekapList.map((r, i) => [
+        i + 1,
+        r.no_reg,
+        r.penanggung_jawab,
+        r.no_lhp,
+        r.judul_temuan,
+        formatRupiah(r.total_kerugian),
+        formatRupiah(r.total_pengembalian),
+        formatRupiah((r.total_kerugian||0) - (r.total_pengembalian||0))
+      ]);
+
+      doc.autoTable({
+        startY: 28,
+        head: [['No', 'No Reg', 'Penanggung Jawab', 'No LHP', 'Judul Temuan', 'Kerugian', 'Pengembalian', 'Sisa']],
+        body: tableData,
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [15, 23, 42] }
+      });
+
+      const opdName = (currentOPDData ? currentOPDData.kode_opd : 'OPD').replace(/[^a-zA-Z0-9]/g, '_');
+      doc.save(`Rekap_Kerugian_${opdName}.pdf`);
+    }
+
+    // MANAJEMEN USER ACCOUNT LOGIC
+    function handleAccountUpdate(event) {
+      event.preventDefault();
+      const oldUser = document.getElementById('manOldUsername').value.trim();
+      const oldPass = document.getElementById('manOldPassword').value.trim();
+      const newUser = document.getElementById('manNewUsername').value.trim();
+      const newPass = document.getElementById('manNewPassword').value.trim();
+
+      startLoading('Memperbarui Kredensial Akun...');
+
+      if (typeof google === 'undefined') {
+        setTimeout(() => {
+          endLoading();
+          const userIdx = mockUsers.findIndex(u => u.username === oldUser && u.password === oldPass);
+          if (userIdx !== -1) {
+            mockUsers[userIdx].username = newUser;
+            mockUsers[userIdx].password = newPass;
+            currentUser.username = newUser;
+            try { localStorage.setItem('lingga_user_session', JSON.stringify(currentUser)); } catch (e){}
+            document.getElementById('formManajemen').reset();
+            Swal.fire('Berhasil (Simulasi)', 'Username & Password berhasil diperbarui!', 'success');
+          } else {
+            Swal.fire('Gagal', 'Username lama atau Password lama tidak sesuai!', 'error');
+          }
+        }, 500);
+      } else {
+        google.script.run
+          .withSuccessHandler(res => {
+            endLoading();
+            if (res.success) {
+              document.getElementById('formManajemen').reset();
+              Swal.fire('Berhasil', res.message, 'success');
+            } else {
+              Swal.fire('Gagal', res.message, 'error');
+            }
+          })
+          .withFailureHandler(err => {
+            endLoading();
+            Swal.fire('Error', err.message, 'error');
+          })
+          .updateAccount({
+            oldUsername: oldUser,
+            oldPassword: oldPass,
+            newUsername: newUser,
+            newPassword: newPass
+          });
+      }
+    }
+  </script>
+</body>
+</html>
